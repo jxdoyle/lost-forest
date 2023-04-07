@@ -36,6 +36,7 @@ import deathSound from '../assets/sound effects/death_4_alex.wav';
 import gameover from '../assets/sound effects/gameover.mp3';
 import monogram from '../assets/font/monogram_extended.ttf';
 import neucha from '../assets/font/Neucha-Regular.ttf';
+import headliner from '../assets/font/HeadlinerNo.45.ttf';
 
 export default class PreLoad extends Phaser.Scene {
   constructor() {
@@ -49,6 +50,7 @@ export default class PreLoad extends Phaser.Scene {
     this.scene.pauseOnBlur = false;
     loadFont('Monogram', monogram);
     loadFont('Neucha', neucha);
+    loadFont('Headliner', headliner);
 
     const progressBox = this.add.graphics();
     const progressBar = this.add.graphics();

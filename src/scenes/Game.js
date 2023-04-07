@@ -18,7 +18,6 @@ export default class Game extends Phaser.Scene {
     // Adds a game music sound with a volume of 0.25 and sets it to loop indefinitely
     this.gameMusic = this.sound.add('gameMusic', { volume: 0.25, loop: true }); 
     this.gameMusic.play(); // Plays the game music
-    this.input.mouse.disableContextMenu(); // Disables the right-click context menu for the mouse input
     this.alive = true; // Sets a boolean variable 'alive' to true
     this.skeletonAlive = true; // Sets a boolean variable 'skeletonAlive' to true
     this.playerJumps = 0; // Sets the number of player jumps to 0

@@ -19,7 +19,7 @@ export default class Instructions extends Phaser.Scene {
     const topIns = this.make.text({
       x: this.width / 2,
       y: 180,
-      text: "My love I am scared I know not how deep in this woods I have been taken but whatever you face please find me, save me and bring me back to you",
+      text: "My love I am scared I know not how deep in this forest I have been taken but whatever you face please find me, save me and bring me back to you",
       style: {
         fontSize: '32px',
         fill: '#000000',
@@ -32,7 +32,7 @@ export default class Instructions extends Phaser.Scene {
 
     const title = this.make.text({
       x: this.width / 2,
-      y: 280,
+      y: 300,
       text: "Remember the things you need to do to survive",
       style: {
         fontSize: '32px',
@@ -40,13 +40,14 @@ export default class Instructions extends Phaser.Scene {
         fontFamily: 'Neucha, monospace',
         align: 'center',
         wordWrap: { width: this.width - 300, useAdvancedWrap: true },
+        fontStyle: 'bold',
       },
     });
     title.setOrigin(0.5, 0.5);
 
     const nextLine2 = this.make.text({
       x: this.width / 2,
-      y: 330,
+      y: 350,
       text: "To jump over the obstacles press 'W' or 'SPACE'",
       style: {
         fontSize: '32px',
@@ -60,7 +61,7 @@ export default class Instructions extends Phaser.Scene {
 
     const nextLine3 = this.make.text({
       x: this.width / 2,
-      y: 380,
+      y: 400,
       text: "To kill the monsters press 'A' or 'LEFT CLICK' the mouse button",
       style: {
         fontSize: '32px',
@@ -74,7 +75,7 @@ export default class Instructions extends Phaser.Scene {
 
     const nextLine4 = this.make.text({
       x: this.width / 2,
-      y: 430,
+      y: 450,
       text: "To drop faster press 'D' or 'RIGHT CLICK' the mouse button",
       style: {
         fontSize: '32px',
@@ -89,7 +90,7 @@ export default class Instructions extends Phaser.Scene {
     const cont = this.make.text({
       x: this.width / 2,
       y: 600,
-      text: "Press 'ENTER' to continue",
+      text: "Click to continue",
       style: {
         fontSize: '45px',
         fill: '#000000',
@@ -100,12 +101,9 @@ export default class Instructions extends Phaser.Scene {
     });
     cont.setOrigin(0.5, 0.5);
 
-    ['A', 'D', 'SPACE', 'ENTER'].forEach(key => {
-      const keyP = this.input.keyboard.addKey(key);
-      keyP.on('down', () => {
-        this.cameras.main.fadeOut(2000, 255, 255, 255);
-        this.scene.start('game-start');
-      });
+    this.input.on('pointerdown', () => {
+      this.cameras.main.fadeOut(2000, 255, 255, 255);
+      this.scene.start('game-start');
     });
   }
 }
