@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import Phaser from 'phaser';
 import createAligned from '../javascript/createAligned';
 import gameOptions from '../options/gameConfig';
