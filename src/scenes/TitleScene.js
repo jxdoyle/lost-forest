@@ -33,7 +33,7 @@ export default class TitleScene extends Phaser.Scene {
     this.bg7 = createAligned(this, 0, 'upTree', true);
     this.bg8 = createAligned(this, 10, 'floor', true, -250);
 
-    this.player = this.add.sprite(200, 620, 'player_run');
+    this.player = this.add.sprite(200, 618, 'player_run');
     this.player.anims.play('run');
     this.player.setScale(1.5);
 
