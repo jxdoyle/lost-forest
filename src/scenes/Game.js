@@ -123,7 +123,7 @@ export default class Game extends Phaser.Scene {
         if (pointer.rightButtonDown()) {
           // If right click is pressed, call instaDrop() function
           this.instaDrop();
-        } else if (pointer.leftButtonDown()) {
+        } else if (pointer.leftButtonDown() && this.player.y > 650) {
           // If left click is pressed, call attack() function
           this.attack();
         }
@@ -330,16 +330,6 @@ export default class Game extends Phaser.Scene {
         this.player.y = gameOptions.playerPositionY;
         this.player.play('run');
       }
-  
-      // Check player's position relative to each platform and play 'run' animation if conditions are met
-      this.platformGroup.getChildren().forEach(platform => {
-        const platformPosY = platform.body.y - platform.body.height + 10.5;
-  
-        if (this.player.y < platformPosY && this.player.y > platformPosY - 10.5 && this.alive) {
-          this.player.y = platformPosY;
-          this.player.play('run');
-        }
-      });
     });
   }  
 
@@ -507,7 +497,7 @@ export default class Game extends Phaser.Scene {
           if (this.player.body.bottom === platformPosY - 5) {
             // When the player overlaps with the platform from the top and is at the same height,
             // set the player's Y position to be just above the platform
-            this.player.y = platformPosY - this.player.body.height;
+            this.player.y = platformPosY - this.player.body.height + 20;
           }
         });
       });
