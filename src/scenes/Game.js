@@ -45,7 +45,7 @@ export default class Game extends Phaser.Scene {
 
     this.bg8 = this.physics.add.existing(this.bg8); // Adds the floor sprite to the physics system as an existing object
     this.bg8.body.setImmovable(); // Sets the body of floor to be immovable
-    this.bg8.body.setSize(this.width, 55); // Sets the size of floor body to match the width of the game and a height of 55
+    this.bg8.body.setSize(this.width, 58); // Sets the size of floor body to match the width of the game and a height of 55
     
     this.scoreText = this.make.text({ // Creates a text object for displaying the score
       x: this.width - 160, // Sets the x-coordinate of the text
@@ -82,7 +82,8 @@ export default class Game extends Phaser.Scene {
     // Add a player sprite with physics enabled at the specified position and with the specified texture
     this.player = this.physics.add.sprite(gameOptions.playerPositionX, gameOptions.playerPositionY, 'player')
       .setOrigin(0.5, 1) // Set the origin of the player to the center-bottom of the sprite
-      .setScale(1.5); // Set the player's scale
+      .setScale(1.5) // Set the player's scale
+      .setDepth(1); // Set the player's depth to 1 to ensure it is always on top of other sprites
 
     this.player.setGravityY(gameOptions.playerGravity); // Set the player's gravity on the Y-axis using the game options
 
@@ -194,8 +195,9 @@ export default class Game extends Phaser.Scene {
       this.alive = false;
       // Set player texture to dead
       this.player.setTexture('player_dead');
-      // Play dead animation for player
+      // Play dead animation for player and offset players texture difference between player and player_dead
       this.player.anims.play('dead', true);
+      this.player.setSize(this.player.width, this.player.height - 1);
       // Play death sound effect
       this.sound.play('death_sound', { volume: 0.25 });
       // Execute outro function
@@ -223,8 +225,9 @@ export default class Game extends Phaser.Scene {
         this.alive = false;
         // Set player texture to dead
         this.player.setTexture('player_dead');
-        // Play dead animation for player
+        // Play dead animation for player and offset texture differences between player and player_dead
         this.player.anims.play('dead', true);
+        this.player.setSize(this.player.width, this.player.height - 1);
         // Play death sound effect
         this.sound.play('death_sound', { volume: 0.25 });
         // Execute outro function
@@ -384,7 +387,7 @@ export default class Game extends Phaser.Scene {
       // Set the velocity of the platform based on the platformSpeed
       platform.body.setVelocityX(gameOptions.platformSpeed * -1);
       // Set the body size of the platform, leaving out 10 pixels from the height
-      platform.body.setSize(platform.body.width, platform.body.height - 10);
+      platform.body.setSize(platform.body.width, platform.body.height - 20);
       // Add the platform to the platformGroup
       this.platformGroup.add(platform);
     }
@@ -443,7 +446,7 @@ export default class Game extends Phaser.Scene {
     const h = this.textures.get('spike').getSourceImage().height;
   
     // Create a new tileSprite for the floor spike, positioned at the right edge of the game screen, at the player's position Y, with a width and a random scaling factor
-    const floorSpike = this.add.tileSprite(this.width, gameOptions.playerPositionY, gameOptions.spikeWidth * Phaser.Math.Between(gameOptions.spikeScaleRange[0], gameOptions.spikeScaleRange[1]), h, 'spike');
+    const floorSpike = this.add.tileSprite(this.width, gameOptions.playerPositionY + 4, gameOptions.spikeWidth * Phaser.Math.Between(gameOptions.spikeScaleRange[0], gameOptions.spikeScaleRange[1]), h, 'spike');
   
     // Add physics to the floor spike to enable collision
     this.physics.add.existing(floorSpike);
@@ -463,7 +466,7 @@ export default class Game extends Phaser.Scene {
     this.skeletonAlive = true;
   
     // Create a new sprite for the skeleton, positioned at the right edge of the game screen
-    const skeleton = this.physics.add.sprite(this.width, gameOptions.playerPositionY - 7, 'skeleton_walk')
+    const skeleton = this.physics.add.sprite(this.width, gameOptions.playerPositionY - 8, 'skeleton_walk')
       .setScale(2.5);
   
     // Set the horizontal velocity of the skeleton to move towards the left
@@ -500,9 +503,12 @@ export default class Game extends Phaser.Scene {
   
         // Add overlap callback for top collisions
         this.physics.add.overlap(this.player, platform, () => {
-          // When the player overlaps with the platform from the top,
-          // set the player's Y position to be just above the platform
-          this.player.y = platformPosY - 10.5;
+          // Check if the player's bottom edge is at the same height as the platform's top edge
+          if (this.player.body.bottom === platformPosY - 5) {
+            // When the player overlaps with the platform from the top and is at the same height,
+            // set the player's Y position to be just above the platform
+            this.player.y = platformPosY - this.player.body.height;
+          }
         });
       });
     }
@@ -624,6 +630,7 @@ export default class Game extends Phaser.Scene {
     // Delayed callback to set the player texture to 'player_dead' after 1 second
     this.time.delayedCall(1000, () => {
       this.player.setTexture('player_dead', 7);
+      this.player.setSize(this.player.width, this.player.height - 1);
     });
   }
   

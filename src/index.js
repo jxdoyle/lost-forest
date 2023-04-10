@@ -23,7 +23,7 @@ window.onload = () => {
     physics: {
       default: 'arcade',
       arcade: {
-        //debug: true,
+        // debug: true,
       },
     },
     dom: {

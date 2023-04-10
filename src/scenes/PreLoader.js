@@ -23,7 +23,7 @@ import playerJump from '../assets/player/player_jump.png';
 import playerFalling from '../assets/player/player_falling.png';
 import playerAttack from '../assets/player/player_attack.png';
 import playerDead from '../assets/player/player_dead.png';
-import skeletonAttack from '../assets/monsters/skeleton/Skeleton Attack.png';
+// import skeletonAttack from '../assets/monsters/skeleton/Skeleton Attack.png';
 import skeletonWalk from '../assets/monsters/skeleton/Skeleton Walk.png';
 import skeletonDead from '../assets/monsters/skeleton/Skeleton Dead.png';
 import menu from '../assets/music/Ludum Dare 28 - Track 7.wav';
@@ -138,10 +138,10 @@ export default class PreLoad extends Phaser.Scene {
       frameHeight: 33,
     });
 
-    this.load.spritesheet('skeleton_attack', skeletonAttack, {
-      frameWidth: 38,
-      frameHeight: 33,
-    });
+    // this.load.spritesheet('skeleton_attack', skeletonAttack, {
+    //   frameWidth: 38,
+    //   frameHeight: 33,
+    // });
 
     this.load.spritesheet('skeleton_dead', skeletonDead, {
       frameWidth: 42,
@@ -226,14 +226,14 @@ export default class PreLoad extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.anims.create({
-      key: 'skeleton_attacking',
-      frames: this.anims.generateFrameNumbers('skeleton_attack', {
-        start: 0,
-        end: 17,
-      }),
-      frameRate: 15,
-    });
+    // this.anims.create({
+    //   key: 'skeleton_attacking',
+    //   frames: this.anims.generateFrameNumbers('skeleton_attack', {
+    //     start: 0,
+    //     end: 17,
+    //   }),
+    //   frameRate: 15,
+    // });
 
     this.anims.create({
       key: 'skeleton_death',
