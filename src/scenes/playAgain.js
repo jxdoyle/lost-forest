@@ -68,13 +68,13 @@ export default class playAgain extends Phaser.Scene {
   start() {
     this.ending.stop();
     this.cameras.main.fadeOut(2000, 255, 255, 255);
-    this.scene.start('title-screen');
+    this.scene.start('game-start');
   }
 
   exit() {
     this.ending.stop();
     this.cameras.main.fadeOut(2000, 0, 0, 0);
-    this.scene.stop();
+    this.scene.start("title-screen");
   }
 
   playIsPressed() {
